@@ -5,6 +5,7 @@ A utility tool for processing and analyzing gcovr JSON coverage reports.
 ## Features
 
 - **Coverage Diff**: Compare two gcovr JSON reports to identify coverage increases
+- **Filtering Support**: Filter coverage tracking by specific files and functions using a YAML config
 - Reports which functions have improved coverage
 - Shows old and new coverage percentages
 - Displays newly covered line numbers
@@ -58,6 +59,40 @@ Compare two gcovr JSON reports:
 
 - `--base, -b`: Base gcovr JSON report file (required)
 - `--new, -n`: New gcovr JSON report file (required)
+- `--filter, -f`: Filter config file (YAML) to specify target files and functions (optional)
+
+#### Using Filter Configuration
+
+You can use a YAML configuration file to filter which files and functions to track:
+
+```bash
+./gcovr-util diff --base base.json --new new.json --filter filter.yaml
+```
+
+**Filter Config Format** (`filter.yaml`):
+
+```yaml
+compiler:
+  path: "/usr/bin/gcc"
+  gcovr_exec_path: "/path/to/build"
+
+targets:
+  - file: "demo.cc"
+    functions:
+      - "f"
+      - "g"
+  - file: "another_file.cpp"
+    functions:
+      - "myFunction"
+      - "anotherFunction"
+```
+
+This will only report coverage increases for the specified functions in the specified files. All other files and functions will be ignored.
+
+**Note**: 
+- File paths can be specified as relative paths, absolute paths, or just filenames
+- Function names should match the demangled names (e.g., "f" instead of "_Z1fv")
+- The `*.json` files and filter config file paths support both relative and absolute paths
 
 #### Example Output
 
@@ -100,6 +135,14 @@ if err != nil {
     log.Fatal(err)
 }
 
+// Optional: Apply filtering
+filterConfig, err := gcovr.ParseFilterConfig("filter.yaml")
+if err != nil {
+    log.Fatal(err)
+}
+baseReport = gcovr.ApplyFilter(baseReport, filterConfig)
+newReport = gcovr.ApplyFilter(newReport, filterConfig)
+
 // Compute coverage increase
 report, err := gcovr.ComputeCoverageIncrease(baseReport, newReport)
 if err != nil {
@@ -116,6 +159,7 @@ fmt.Print(output)
 ```
 .
 ├── main.go              # CLI entry point
+├── version.go           # Version information
 ├── cmd/                 # CLI commands
 │   ├── root.go         # Root command
 │   └── diff.go         # Diff command implementation
@@ -123,11 +167,17 @@ fmt.Print(output)
 │   └── gcovr/          # Public library package
 │       ├── types.go    # Data structures
 │       ├── parser.go   # JSON parsing
-│       └── diff.go     # Coverage diff logic
-└── test_data/          # Sample test files
-    ├── f.json
-    ├── g.json
-    └── m.json
+│       ├── diff.go     # Coverage diff logic
+│       └── filter.go   # Filter configuration
+├── test_data/          # Sample test files
+│   ├── f.json
+│   ├── g.json
+│   ├── m.json
+│   ├── filter.yaml              # Example filter config
+│   └── filter-f-only.yaml       # Another filter example
+├── Makefile            # Build automation
+├── CHANGELOG.md        # Version history
+└── README.md           # This file
 ```
 
 ## How It Works

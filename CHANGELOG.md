@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.0.0] - 2025-11-12
+
+### Added
+- **Filter configuration support** via YAML files - **BREAKING FEATURE**
+- `--filter` flag to specify target files and functions to track
+- `ApplyFilter` and `ParseFilterConfig` functions in library API
+- Support for filtering by file and function names
+- Flexible path matching (relative, absolute, or filename only)
+- Example filter configuration files (gcc-x64-canary.yaml, filter-example.yaml)
+- Smart function name matching (handles mangled and demangled names)
+
+### Changed
+- Updated README with comprehensive filtering documentation
+- Enhanced CLI help messages with filtering examples
+- Added gopkg.in/yaml.v3 dependency for YAML parsing
+
+### Why v2.0.0?
+This is a major version bump because:
+- New filtering feature significantly changes how the tool can be used
+- New command-line flag changes the interface
+- New dependency added (gopkg.in/yaml.v3)
+- Enhanced API with new public functions
+
 ## [v1.0.0] - 2025-11-11
 
 ### Added
@@ -28,4 +51,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Name Demangling**: Display readable C++ function names
 - **Dual Usage**: Both CLI tool and importable Go library
 
+[v2.0.0]: https://github.com/zjy-dev/gcovr-json-util/releases/tag/v2.0.0
 [v1.0.0]: https://github.com/zjy-dev/gcovr-json-util/releases/tag/v1.0.0

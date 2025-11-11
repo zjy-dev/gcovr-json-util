@@ -1,0 +1,9 @@
+compiler:
+  path: "/usr/bin/gcc"
+  gcovr_exec_path: "/path/to/build"
+
+targets:
+  - file: "demo.cc"
+    functions:
+      - "f"
+      - "g"

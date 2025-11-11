@@ -8,7 +8,7 @@
                     "line_number": 5,
                     "function_name": "_Z1fv",
                     "block_ids": [],
-                    "count": 1,
+                    "count": 5,
                     "branches": [],
                     "gcovr/md5": "c82822a1761e7f0f209f36b0e346eb0f"
                 },
@@ -19,18 +19,18 @@
                         2,
                         3
                     ],
-                    "count": 1,
+                    "count": 5,
                     "branches": [],
                     "calls": [
                         {
                             "source_block_id": 2,
                             "destination_block_id": 1,
-                            "returned": 1
+                            "returned": 5
                         },
                         {
                             "source_block_id": 3,
                             "destination_block_id": 1,
-                            "returned": 1
+                            "returned": 5
                         }
                     ],
                     "gcovr/md5": "73a42f0382a13661ac91c64e4fd31fc5"
@@ -39,7 +39,7 @@
                     "line_number": 7,
                     "function_name": "_Z1fv",
                     "block_ids": [],
-                    "count": 1,
+                    "count": 5,
                     "branches": [],
                     "gcovr/md5": "cbb184dd8e05c9709e5dcaedaa0495cf"
                 },
@@ -86,7 +86,7 @@
                     "line_number": 13,
                     "function_name": "main",
                     "block_ids": [],
-                    "count": 2,
+                    "count": 6,
                     "branches": [],
                     "gcovr/md5": "d9d7d650613a8ac26f6dfe250d77e8ea"
                 },
@@ -96,10 +96,10 @@
                     "block_ids": [
                         2
                     ],
-                    "count": 2,
+                    "count": 6,
                     "branches": [
                         {
-                            "count": 2,
+                            "count": 6,
                             "fallthrough": true,
                             "throw": false,
                             "source_block_id": 2,
@@ -117,7 +117,7 @@
                         {
                             "source_block_id": 2,
                             "destination_block_id": 1,
-                            "returned": 2
+                            "returned": 6
                         }
                     ],
                     "gcovr/md5": "656704f2f10fca8691a458c72f6553b9"
@@ -129,10 +129,10 @@
                         3,
                         4
                     ],
-                    "count": 2,
+                    "count": 6,
                     "branches": [
                         {
-                            "count": 1,
+                            "count": 5,
                             "fallthrough": true,
                             "throw": false,
                             "source_block_id": 3,
@@ -146,7 +146,7 @@
                             "destination_block_id": 5
                         },
                         {
-                            "count": 1,
+                            "count": 5,
                             "fallthrough": true,
                             "throw": false,
                             "source_block_id": 4,
@@ -164,7 +164,7 @@
                         {
                             "source_block_id": 4,
                             "destination_block_id": 1,
-                            "returned": 1
+                            "returned": 5
                         }
                     ],
                     "gcovr/md5": "89c304069aa3509d4b842e7e9f1f3d6b"
@@ -207,7 +207,7 @@
                     "block_ids": [
                         6
                     ],
-                    "count": 2,
+                    "count": 6,
                     "branches": [],
                     "gcovr/md5": "02abc18c3b46fbd7cfee6bbcd0986b79"
                 }
@@ -217,7 +217,7 @@
                     "name": "_Z1fv",
                     "demangled_name": "f()",
                     "lineno": 5,
-                    "execution_count": 1,
+                    "execution_count": 5,
                     "blocks_percent": 100.0,
                     "pos": [
                         "5:6",
@@ -239,7 +239,7 @@
                     "name": "main",
                     "demangled_name": "main",
                     "lineno": 13,
-                    "execution_count": 2,
+                    "execution_count": 6,
                     "blocks_percent": 85.7,
                     "pos": [
                         "13:5",
