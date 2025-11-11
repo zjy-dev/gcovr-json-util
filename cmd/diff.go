@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
-	"github.com/zjy-dev/gcovr-json-util/pkg/gcovr"
+	"github.com/zjy-dev/gcovr-json-util/v2/pkg/gcovr"
 )
 
 var (

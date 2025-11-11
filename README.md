@@ -40,14 +40,14 @@ go mod tidy
 
 **Option 2: Update to specific v2.0.0**
 ```bash
-go get github.com/zjy-dev/gcovr-json-util@v2.0.0
+go get github.com/zjy-dev/gcovr-json-util/v2@v2.0.0
 go mod tidy
 ```
 
 **Option 3: Edit go.mod directly**
 ```go
 require (
-    github.com/zjy-dev/gcovr-json-util v2.0.0
+    github.com/zjy-dev/gcovr-json-util/v2 v2.0.0
 )
 ```
 Then run:
@@ -57,8 +57,10 @@ go mod tidy
 
 **Check your current version:**
 ```bash
-go list -m github.com/zjy-dev/gcovr-json-util
+go list -m github.com/zjy-dev/gcovr-json-util/v2
 ```
+
+**Note:** v2.0.0+ uses the `/v2` suffix in the module path, as per Go modules versioning convention.
 
 ### Building from Source
 
@@ -166,7 +168,7 @@ Found 2 function(s) with increased coverage:
 You can also use this tool as a Go library in your projects:
 
 ```go
-import "github.com/zjy-dev/gcovr-json-util/pkg/gcovr"
+import "github.com/zjy-dev/gcovr-json-util/v2/pkg/gcovr"
 
 // Parse coverage reports
 baseReport, err := gcovr.ParseReport("base.json")
@@ -213,9 +215,18 @@ fmt.Print(output)
 
 **Migration from v1.0.0:**
 ```bash
-# Update dependency
-go get github.com/zjy-dev/gcovr-json-util@v2.0.0
+# Update dependency (note the /v2 suffix for v2.0.0+)
+go get github.com/zjy-dev/gcovr-json-util/v2@v2.0.0
 go mod tidy
+```
+
+**Important:** For v2.0.0+, the import path includes `/v2` suffix:
+```go
+// Old (v1.0.0)
+import "github.com/zjy-dev/gcovr-json-util/pkg/gcovr"
+
+// New (v2.0.0+)
+import "github.com/zjy-dev/gcovr-json-util/v2/pkg/gcovr"
 ```
 
 **Code changes (optional, for new filtering feature):**

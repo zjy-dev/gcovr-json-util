@@ -1,4 +1,4 @@
-module github.com/zjy-dev/gcovr-json-util
+module github.com/zjy-dev/gcovr-json-util/v2
 
 go 1.24.2
 

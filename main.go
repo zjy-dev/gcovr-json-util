@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/zjy-dev/gcovr-json-util/cmd"
+	"github.com/zjy-dev/gcovr-json-util/v2/cmd"
 )
 
 func main() {
