@@ -14,7 +14,7 @@ A utility tool for processing and analyzing gcovr JSON coverage reports.
 ## Installation
 
 ```bash
-go get github.com/zjy-dev/gcovr-json-util
+go install github.com/zjy-dev/gcovr-json-util@latest
 ```
 
 Or build from source:
@@ -22,7 +22,26 @@ Or build from source:
 ```bash
 git clone https://github.com/zjy-dev/gcovr-json-util
 cd gcovr-json-util
+make build
+# Or without make:
 go build -o gcovr-util .
+```
+
+### Building with Version Information
+
+To build with version information embedded:
+
+```bash
+make build
+# This automatically embeds version, git commit, and build date
+
+# Or manually:
+go build -ldflags "-X main.Version=v1.0.0 -X main.GitCommit=$(git rev-parse --short HEAD) -X main.BuildDate=$(date -u +%Y-%m-%dT%H:%M:%SZ)" -o gcovr-util .
+```
+
+Check version:
+```bash
+./gcovr-util --version
 ```
 
 ## Usage
