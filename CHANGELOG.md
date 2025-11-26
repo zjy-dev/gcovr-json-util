@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v2.2.0] - 2025-11-26
+
+### Added
+
+- **Coverage Statistics** - New feature to calculate overall coverage percentage
+- `coverage` CLI command (alias: `cov`) to calculate coverage from a gcovr JSON file
+- `CalculateCoverage()` API function to compute coverage statistics
+- `FormatCoverageReport()` API function to format coverage statistics report
+- New data structures: `FunctionCoverage` and `CoverageReport`
+- Support for filtering coverage calculation using `--filter` flag
+- Detailed per-function coverage statistics (covered/total lines, percentage)
+- Comprehensive unit tests for coverage functionality
+
 ## [v2.1.0] - 2025-11-19
 
 ### Added
@@ -75,6 +88,7 @@ This is a major version bump because:
 - **Name Demangling**: Display readable C++ function names
 - **Dual Usage**: Both CLI tool and importable Go library
 
+[v2.2.0]: https://github.com/zjy-dev/gcovr-json-util/releases/tag/v2.2.0
 [v2.1.0]: https://github.com/zjy-dev/gcovr-json-util/releases/tag/v2.1.0
 [v2.0.0]: https://github.com/zjy-dev/gcovr-json-util/releases/tag/v2.0.0
 [v1.0.0]: https://github.com/zjy-dev/gcovr-json-util/releases/tag/v1.0.0

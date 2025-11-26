@@ -66,3 +66,20 @@ type FileUncovered struct {
 type UncoveredReport struct {
 	Files []FileUncovered
 }
+
+// FunctionCoverage represents the coverage statistics for a single function
+type FunctionCoverage struct {
+	FilePath      string
+	FunctionName  string // Mangled name
+	DemangledName string
+	TotalLines    int
+	CoveredLines  int
+}
+
+// CoverageReport represents the overall coverage statistics
+type CoverageReport struct {
+	Functions          []FunctionCoverage
+	TotalLines         int
+	TotalCoveredLines  int
+	CoveragePercentage float64
+}

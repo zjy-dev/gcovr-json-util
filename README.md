@@ -6,6 +6,7 @@ A utility tool for processing and analyzing gcovr JSON coverage reports.
 
 - **Coverage Diff**: Compare two gcovr JSON reports to identify coverage increases
 - **Uncovered Lines Reporting**: Identify which lines, functions, and files lack coverage
+- **Coverage Statistics**: Calculate overall coverage percentage for filtered functions
 - **Filtering Support**: Filter coverage tracking by specific files and functions using a YAML config
 - Reports which functions have improved coverage
 - Shows old and new coverage percentages
@@ -158,6 +159,44 @@ Found 2 function(s) with uncovered lines (4 total uncovered lines):
    Uncovered Lines (1): [17]
 ```
 
+#### Coverage Command
+
+Calculate overall coverage statistics from a gcovr JSON report:
+
+```bash
+./gcovr-util coverage <gcovr-file.json>
+```
+
+**Options:**
+
+- `--filter, -f`: Filter config file (YAML) to specify target files and functions (optional)
+
+**Example:**
+
+```bash
+# Show coverage for all functions
+./gcovr-util coverage coverage.json
+
+# Show coverage only for filtered functions
+./gcovr-util coverage --filter filter.yaml coverage.json
+```
+
+**Example Output:**
+
+```
+Coverage Report
+===============
+
+Overall Coverage: 7/11 lines (63.6%)
+
+Functions (3):
+
+  File: demo.cc
+    1. f(): 3/3 lines (100.0%)
+    2. g(): 0/3 lines (0.0%)
+    3. main: 4/5 lines (80.0%)
+```
+
 #### Using Filter Configuration
 
 You can use a YAML configuration file to filter which files and functions to track:
@@ -283,7 +322,40 @@ output := gcovr.FormatUncoveredReport(uncoveredReport)
 fmt.Print(output)
 ```
 
-**Example 3: Working with Grouped Data**
+**Example 3: Calculate Coverage Statistics**
+
+```go
+import "github.com/zjy-dev/gcovr-json-util/v2/pkg/gcovr"
+
+// Parse coverage report
+report, err := gcovr.ParseReport("coverage.json")
+if err != nil {
+    log.Fatal(err)
+}
+
+// Optional: Apply filtering to calculate coverage for specific functions
+filterConfig, err := gcovr.ParseFilterConfig("filter.yaml")
+if err != nil {
+    log.Fatal(err)
+}
+report = gcovr.ApplyFilter(report, filterConfig)
+
+// Calculate coverage statistics
+coverageReport, err := gcovr.CalculateCoverage(report)
+if err != nil {
+    log.Fatal(err)
+}
+
+// Access coverage data programmatically
+fmt.Printf("Overall Coverage: %.1f%%\n", coverageReport.CoveragePercentage)
+fmt.Printf("Total Lines: %d, Covered: %d\n", coverageReport.TotalLines, coverageReport.TotalCoveredLines)
+
+// Or format and display results
+output := gcovr.FormatCoverageReport(coverageReport)
+fmt.Print(output)
+```
+
+**Example 4: Working with Grouped Data**
 
 The `FindUncoveredLines()` function returns data already grouped by file:
 
@@ -329,7 +401,43 @@ type FunctionUncovered struct {
 }
 ```
 
+**CoverageReport** - Coverage statistics structure:
+
+```go
+type CoverageReport struct {
+    Functions          []FunctionCoverage  // Per-function coverage data
+    TotalLines         int                 // Total lines across all functions
+    TotalCoveredLines  int                 // Total covered lines
+    CoveragePercentage float64             // Overall coverage percentage
+}
+
+type FunctionCoverage struct {
+    FilePath      string  // Path to the source file
+    FunctionName  string  // Mangled function name
+    DemangledName string  // Human-readable function name
+    TotalLines    int     // Total lines in function
+    CoveredLines  int     // Number of covered lines
+}
+```
+
 ## Version History & Migration
+
+### v2.2.0 - November 26, 2025
+
+**New Features:**
+
+- ✨ Coverage statistics feature
+- 📊 Calculate overall coverage percentage for filtered functions
+- 📋 New `coverage` command (alias: `cov`)
+- 🔧 New library functions: `CalculateCoverage()`, `FormatCoverageReport()`
+- 📦 New data structures: `CoverageReport`, `FunctionCoverage`
+
+**Migration from v2.1.0:**
+
+```bash
+go get github.com/zjy-dev/gcovr-json-util/v2@v2.2.0
+go mod tidy
+```
 
 ### v2.1.0 - November 19, 2025
 
@@ -435,14 +543,16 @@ report, _ := gcovr.ComputeCoverageIncrease(baseReport, newReport)
 ├── cmd/                 # CLI commands
 │   ├── root.go         # Root command
 │   ├── diff.go         # Diff command implementation
-│   └── uncovered.go    # Uncovered lines command
+│   ├── uncovered.go    # Uncovered lines command
+│   └── coverage.go     # Coverage statistics command
 ├── pkg/
 │   └── gcovr/          # Public library package
 │       ├── types.go    # Data structures
 │       ├── parser.go   # JSON parsing
 │       ├── diff.go     # Coverage diff logic
 │       ├── filter.go   # Filter configuration
-│       └── uncovered.go # Uncovered lines logic
+│       ├── uncovered.go # Uncovered lines logic
+│       └── coverage.go # Coverage statistics logic
 ├── test_data/          # Sample test files
 │   ├── f.json
 │   ├── g.json
@@ -477,6 +587,16 @@ report, _ := gcovr.ComputeCoverageIncrease(baseReport, newReport)
    - Function names (demangled for C++)
    - Coverage percentage and line count
    - Specific line numbers that lack coverage
+
+### Coverage Statistics
+
+1. **Parse**: Reads and parses a gcovr JSON report
+2. **Calculate**: Computes coverage statistics for each function
+3. **Aggregate**: Calculates overall coverage percentage
+4. **Report**: Generates a detailed report with:
+   - Overall coverage percentage
+   - Per-function coverage statistics
+   - Total and covered line counts
 
 ## Use Cases
 
